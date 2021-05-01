@@ -21,14 +21,14 @@ DNSServer dnsServer;
 void setup() {
   pinMode(PIN_LED, OUTPUT);
   Serial.begin(115200); while (!Serial); delay(200);
-  Serial.print(F("\nStarting Async_ConfigOnDoubleReset_minimal on ")); Serial.println(ARDUINO_BOARD);
+  Serial.print(F("\nStarting Server on ")); Serial.println(ARDUINO_BOARD);
   Serial.println(ESP_ASYNC_WIFIMANAGER_VERSION);
   drd = new DoubleResetDetector(DRD_TIMEOUT, DRD_ADDRESS);
   if (drd->detectDoubleReset()) {
     Serial.println(F("DRD"));
     initialConfig = true;
   }
-  ESPAsync_WiFiManager ESPAsync_wifiManager(&webServer, &dnsServer, "ConfigOnDoubleReset");
+  ESPAsync_WiFiManager ESPAsync_wifiManager(&webServer, &dnsServer, "VIA-ESP32");
   if (ESPAsync_wifiManager.WiFi_SSID() == "") {
     Serial.println(F("No AP credentials"));
     initialConfig = true;

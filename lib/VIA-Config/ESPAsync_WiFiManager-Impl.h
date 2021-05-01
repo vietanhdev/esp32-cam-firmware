@@ -1331,6 +1331,7 @@ void ESPAsync_WiFiManager::handleRoot(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_SCRIPT);
   page += FPSTR(WM_HTTP_SCRIPT_NTP);
   page += FPSTR(WM_HTTP_STYLE);
+  page += FPSTR(WM_HTTP_HEADER);
   page += _customHeadElement;
   page += FPSTR(WM_HTTP_HEAD_END);
   page += "<h2>";
@@ -1361,6 +1362,8 @@ void ESPAsync_WiFiManager::handleRoot(AsyncWebServerRequest *request)
   page += F("</div>");
   
   page += FPSTR(WM_FLDSET_END);
+
+  page += FPSTR(WM_HTTP_FOOTER);
     
   page += FPSTR(WM_HTTP_END);
  
@@ -1403,6 +1406,7 @@ void ESPAsync_WiFiManager::handleWifi(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_SCRIPT);
   page += FPSTR(WM_HTTP_SCRIPT_NTP);
   page += FPSTR(WM_HTTP_STYLE);
+  page += FPSTR(WM_HTTP_HEADER);
   page += _customHeadElement;
   page += FPSTR(WM_HTTP_HEAD_END);
   page += F("<h2>Configuration</h2>");
@@ -1440,7 +1444,7 @@ void ESPAsync_WiFiManager::handleWifi(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_FORM_START);
   char parLength[2];
   
-  page += FPSTR(WM_FLDSET_START);
+  // page += FPSTR(WM_FLDSET_START);
     
   // add the extra parameters to the form
   for (int i = 0; i < _paramsCount; i++)
@@ -1502,6 +1506,8 @@ void ESPAsync_WiFiManager::handleWifi(AsyncWebServerRequest *request)
   // To permit disable/enable StaticIP configuration in Config Portal from sketch. Valid only if DHCP is used.
   // You'll loose the feature of dynamically changing from DHCP to static IP, or vice versa
   // You have to explicitly specify false to disable the feature.
+
+  page += "<br>";
 
 #if !USE_STATIC_IP_CONFIG_IN_CP
   if (_WiFi_STA_IPconfig._sta_static_ip)
@@ -1569,6 +1575,8 @@ void ESPAsync_WiFiManager::handleWifi(AsyncWebServerRequest *request)
   }
 
   page += FPSTR(WM_HTTP_FORM_END);
+
+  page += FPSTR(WM_HTTP_FOOTER);
 
   page += FPSTR(WM_HTTP_END);
   
@@ -1679,6 +1687,7 @@ void ESPAsync_WiFiManager::handleWifiSave(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_SCRIPT);
   page += FPSTR(WM_HTTP_SCRIPT_NTP);
   page += FPSTR(WM_HTTP_STYLE);
+  page += FPSTR(WM_HTTP_HEADER);
   page += _customHeadElement;
   page += FPSTR(WM_HTTP_HEAD_END);
   page += FPSTR(WM_HTTP_SAVED);
@@ -1688,6 +1697,8 @@ void ESPAsync_WiFiManager::handleWifiSave(AsyncWebServerRequest *request)
   // KH, update from v1.1.0
   page.replace("{x1}", _ssid1);
   //////
+
+  page += FPSTR(WM_HTTP_FOOTER);
   
   page += FPSTR(WM_HTTP_END);
  
@@ -1791,6 +1802,7 @@ void ESPAsync_WiFiManager::handleInfo(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_SCRIPT);
   page += FPSTR(WM_HTTP_SCRIPT_NTP);
   page += FPSTR(WM_HTTP_STYLE);
+  page += FPSTR(WM_HTTP_HEADER);
   page += _customHeadElement;
   
   if (connect)
@@ -1879,8 +1891,8 @@ void ESPAsync_WiFiManager::handleInfo(AsyncWebServerRequest *request)
   page += FPSTR(WM_FLDSET_END);
 #endif
 
-  page += F("<p/>More information about ESPAsync_WiFiManager at");
-  page += F("<p/><a href=\"https://github.com/khoih-prog/ESPAsync_WiFiManager\">https://github.com/khoih-prog/ESPAsync_WiFiManager</a>");
+  page += FPSTR(WM_HTTP_FOOTER);
+
   page += FPSTR(WM_HTTP_END);
  
 #if ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 ) 
@@ -1973,9 +1985,11 @@ void ESPAsync_WiFiManager::handleReset(AsyncWebServerRequest *request)
   page += FPSTR(WM_HTTP_SCRIPT);
   page += FPSTR(WM_HTTP_SCRIPT_NTP);
   page += FPSTR(WM_HTTP_STYLE);
+  page += FPSTR(WM_HTTP_HEADER);
   page += _customHeadElement;
   page += FPSTR(WM_HTTP_HEAD_END);
   page += F("Resetting");
+  page += FPSTR(WM_HTTP_FOOTER);
   page += FPSTR(WM_HTTP_END);
     
 #if ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 ) 
