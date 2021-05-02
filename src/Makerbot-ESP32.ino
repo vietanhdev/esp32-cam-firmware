@@ -13,7 +13,7 @@
 #define DRD_ADDRESS             0
 #include <ESP_DoubleResetDetector.h>            //https://github.com/khoih-prog/ESP_DoubleResetDetector
 DoubleResetDetector* drd;
-const int PIN_LED       = 2;
+const int PIN_LED       = 33;
 bool      initialConfig = false;
 AsyncWebServer webServer(80);
 DNSServer dnsServer;
