@@ -154,7 +154,7 @@ char* ESPAsync_WiFiManager::getRFC952_hostname(const char* iHostname)
 
 //////////////////////////////////////////
 
-ESPAsync_WiFiManager::ESPAsync_WiFiManager(AsyncWebServer * webserver, DNSServer *dnsserver, const char *iHostname)
+ESPAsync_WiFiManager::ESPAsync_WiFiManager(AsyncWebServer * webserver, DNSServer *dnsserver, String deviceName)
 {
 
   server    = webserver;
@@ -179,23 +179,18 @@ ESPAsync_WiFiManager::ESPAsync_WiFiManager(AsyncWebServer * webserver, DNSServer
 
   WiFi.mode(WIFI_STA);
 
-  if (iHostname[0] == 0)
+  if (deviceName.isEmpty())
   {
+    deviceName = "VIA-ESP32-General";
+  }
+
 #ifdef ESP8266
-    String _hostname = "ESP8266-" + String(ESP.getChipId(), HEX);
+    _deviceName = deviceName + "-" + String(ESP.getChipId(), HEX);
 #else		//ESP32
-    String _hostname = "ESP32-" + String((uint32_t)ESP.getEfuseMac(), HEX);
+    _deviceName = deviceName + "-" + String((uint32_t)ESP.getEfuseMac(), HEX);
 #endif
-    _hostname.toUpperCase();
-
-    getRFC952_hostname(_hostname.c_str());
-
-  }
-  else
-  {
-    // Prepare and store the hostname only not NULL
-    getRFC952_hostname(iHostname);
-  }
+  _deviceName.toUpperCase();
+  getRFC952_hostname(_deviceName.c_str());
 
   LOGWARN1(F("RFC925 Hostname ="), RFC952_hostname);
 
@@ -391,13 +386,7 @@ void ESPAsync_WiFiManager::setupConfigPortal()
 
 bool ESPAsync_WiFiManager::autoConnect()
 {
-#ifdef ESP8266
-  String ssid = "ESP_" + String(ESP.getChipId());
-#else		//ESP32
-  String ssid = "ESP_" + String((uint32_t)ESP.getEfuseMac());
-#endif
-
-  return autoConnect(ssid.c_str(), NULL);
+  return autoConnect(_deviceName.c_str(), NULL);
 }
 
 /* This is not very useful as there has been an assumption that device has to be
@@ -736,14 +725,7 @@ void ESPAsync_WiFiManager::safeLoop()
 
 bool  ESPAsync_WiFiManager::startConfigPortal()
 {
-#ifdef ESP8266
-  String ssid = "ESP_" + String(ESP.getChipId());
-#else		//ESP32
-  String ssid = "ESP_" + String((uint32_t)ESP.getEfuseMac());
-#endif
-  ssid.toUpperCase();
-
-  return startConfigPortal(ssid.c_str(), NULL);
+  return startConfigPortal(_deviceName.c_str(), NULL);
 }
 
 //////////////////////////////////////////

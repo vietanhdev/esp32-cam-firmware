@@ -117,7 +117,7 @@ const char WM_HTTP_STYLE[] PROGMEM = "<style>div{padding:2px;font-size:1em;}body
 // KH, update from v1.1.0
 const char WM_HTTP_SCRIPT[] PROGMEM = "<script>function c(l){document.getElementById('s').value=l.innerText||l.textContent;document.getElementById('p').focus();document.getElementById('s1').value=l.innerText||l.textContent;document.getElementById('p1').focus();}</script>";
 
-const char WM_HTTP_HEADER[] PROGMEM = "<a class=\"btn\" href=\"/\" style=\"margin:0;border-radius:0;margin-bottom:30px;text-align: center;text-decoration: none;font-weight: bold;\">&#128640; VIA - MAKERBOT 	&#128640;</a>";
+const char WM_HTTP_HEADER[] PROGMEM = "<a class=\"btn\" href=\"/\" style=\"margin:0;border-radius:0;margin-bottom:30px;text-align: center;text-decoration: none;font-weight: bold;\">&#128640; VIA Config Bootstrap &#128640;</a>";
 
 const char WM_HTTP_FOOTER[] PROGMEM = "<p style=\"text-align:center\"><b>VIA Project.</b> <a href=\"https://via.makerviet.org\">https://via.makerviet.org</a></p>";
 //////
@@ -286,7 +286,7 @@ class ESPAsync_WiFiManager
 {
   public:
 
-    ESPAsync_WiFiManager(AsyncWebServer * webserver, DNSServer *dnsserver, const char *iHostname = "");
+    ESPAsync_WiFiManager(AsyncWebServer * webserver, DNSServer *dnsserver, String deviceName);
 
     ~ESPAsync_WiFiManager();
     
@@ -514,6 +514,7 @@ class ESPAsync_WiFiManager
     void          setupConfigPortal();
     void          startWPS();
 
+    String        _deviceName           = "VIA-ESP32-General";
     const char*   _apName               = "no-net";
     const char*   _apPassword           = NULL;
     

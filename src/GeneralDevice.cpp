@@ -1,13 +1,12 @@
-#if !(defined(ESP32) )
-#error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
-#endif
-
 #if defined(ESP32)
 #define USE_SPIFFS            true
 #define ESP_DRD_USE_EEPROM    true
 #else
 #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
 #endif
+
+#include <Arduino.h>
+#include "GeneralDevice.h"
 #include <ESPAsync_WiFiManager.h>               //https://github.com/khoih-prog/ESPAsync_WiFiManager
 #define DRD_TIMEOUT             10
 #define DRD_ADDRESS             0
@@ -28,7 +27,7 @@ void setup() {
     Serial.println(F("DRD"));
     initialConfig = true;
   }
-  ESPAsync_WiFiManager ESPAsync_wifiManager(&webServer, &dnsServer, "VIA-ESP32");
+  ESPAsync_WiFiManager ESPAsync_wifiManager(&webServer, &dnsServer, VIA_DEVICE_NAME);
   if (ESPAsync_wifiManager.WiFi_SSID() == "") {
     Serial.println(F("No AP credentials"));
     initialConfig = true;
