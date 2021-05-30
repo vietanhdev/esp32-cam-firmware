@@ -1,6 +1,0 @@
-#ifndef GENERAL_DEVICE_H
-#define GENERAL_DEVICE_H
-
-#define VIA_DEVICE_NAME "VIA-GENERAL"
-
-#endif

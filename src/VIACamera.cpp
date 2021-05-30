@@ -6,7 +6,7 @@
 #endif
 
 #include <Arduino.h>
-#include "GeneralDevice.h"
+#include "VIACamera.h"
 #include <ESPAsync_WiFiManager.h>               //https://github.com/khoih-prog/ESPAsync_WiFiManager
 #define DRD_TIMEOUT             10
 #define DRD_ADDRESS             0
@@ -57,6 +57,8 @@ void setup() {
   else {
     Serial.print(F("Local IP: "));
     Serial.println(WiFi.localIP());
+    initCamera();
+    startCameraServer(6789);
   }
 }
 void loop() {
