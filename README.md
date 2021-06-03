@@ -1,6 +1,6 @@
-# VIA-Makerbot General Device Firmware
+# VIA-Makerbot Camera Firmware
 
-General firmware for WIFI connected devices using ESP32. This source base will be used to develop firmware for components like cameras and sensors. These components are then connected to a device hub via WIFI to provide sensor values or receive control signals from the system.
+Camera for WIFI connected devices using ESP32-CAM module.
 
 [https://via.makerviet.org/](https://via.makerviet.org/)
 ## Features
